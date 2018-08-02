@@ -8,3 +8,19 @@ GET     /                           controllers.HomeController.index
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+
+# Map loginCount
+GET     /user/:userId/login/count  controllers.HomeController.loginCount(userId)
+
+# Greet user
+GET     /user/:name/greet         controllers.HomeController.greet(name)
+
+# Greet user
+GET     /greet                      controllers.HomeController.greet(name)
+
+# Get Node Names
+GET     /nodes                      controllers.NodeController.node
+
+# Get Detailed Node Information
+GET     /nodes/information          controllers.NodeController.detailedInformation

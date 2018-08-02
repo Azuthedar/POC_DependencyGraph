@@ -1,0 +1,169 @@
+{
+  "subProcesses": [
+    {
+      "name": "EnrichCollateral",
+      "sources": [
+        "SAS_CLN",
+        "SAS_REPO",
+        "PlumCollateral",
+        "CPFExposure",
+        "TreasuryExposure"
+      ],
+      "outputs": [
+        "EnrichedCollateral"
+      ]
+    },
+    {
+      "name": "EnrichExposure",
+      "sources": [
+        "CPFExposure",
+        "TreasuryExposure",
+        "PlumExposure",
+        "OtherExposure",
+        "SAS_Impairment_IB",
+        "SAS_Impairment_Corporate",
+        "CPF_Watchlist",
+        "CIB_WriteOff",
+        "CIB_Watchlist"
+      ],
+      "outputs": [
+        "EnrichedExposure",
+        "EnrichedExposureTemp"
+      ]
+    },
+    {
+      "name": "ModelInput",
+      "sources": [
+        "DataSanityExposure",
+        "EnrichedCollateral"
+      ],
+      "outputs": [
+        "ModelInputExposure",
+        "ModelInputCashflow",
+        "ModelInputCollateral"
+      ]
+    },
+    {
+      "name": "ModelOutput",
+      "sources": [
+        "ModelOutput",
+        "DataSanityExposure",
+        "ModelInputExposure"
+      ],
+      "outputs": [
+        "FinalImpairmentExposure"
+      ]
+    },
+    {
+      "name": "VarianceReport",
+      "sources": [
+        "FinalImpairmentExposure"
+      ],
+      "outputs": [
+        "VarianceReport"
+      ]
+    },
+    {
+      "name": "FinalImpairmentExposure_HDFSToWindows",
+      "sources": [
+        "FinalImpairmentExposure"
+      ],
+      "outputs": []
+    },
+    {
+      "name": "DisclosureReport",
+      "sources": [
+        "DisclosureExposureOutput",
+        "EnrichedCollateral",
+        "DisclosureExcoMapping"
+      ],
+      "outputs": [
+        "Disclosure",
+        "Disclosure_Control"
+      ]
+    },
+    {
+      "name": "MonthlyMOTDisclosure",
+      "sources": [
+        "DisclosureExposure"
+      ],
+      "outputs": [
+        "MonthlyMOTDisclosure"
+      ]
+    },
+    {
+      "name": "OpeningMOTDisclosure",
+      "sources": [
+        "DisclosureExposure"
+      ],
+      "outputs": [
+        "MonthlyMOTDisclosure"
+      ]
+    },
+    {
+      "name": "YTDMOTDisclosure",
+      "sources": [
+        "MonthlyMOTDisclosure"
+      ],
+      "outputs": [
+        "YTDMOTDisclosure"
+      ]
+    },
+    {
+      "name": "EnrichedExposure_HDFSToWindows",
+      "sources": [
+        "EnrichedExposure"
+      ],
+      "outputs": []
+    },
+    {
+      "name": "Disclosure_HDFSToWindows",
+      "sources": [
+        "Disclosure"
+      ],
+      "outputs": []
+    },
+    {
+      "name": "YTDMOTDisclosure_HDFSToWindows",
+      "sources": [
+        "YTDMOTDisclosure"
+      ],
+      "outputs": []
+    },
+    {
+      "name": "Disclosure_Control_HDFSToWindows",
+      "sources": [
+        "Disclosure_Control"
+      ],
+      "outputs": []
+    },
+    {
+      "name": "VarianceReport_HDFSToWindows",
+      "sources": [
+        "VarianceReport"
+      ],
+      "outputs": []
+    },
+    {
+      "name": "ModelInputExposure_HDFSToWindows",
+      "sources": [
+        "ModelInputExposure"
+      ],
+      "outputs": []
+    },
+    {
+      "name": "ModelInputCollateral_HDFSToWindows",
+      "sources": [
+        "ModelInputCollateral"
+      ],
+      "outputs": []
+    },
+    {
+      "name": "ModelInputCashflow_HDFSToWindows",
+      "sources": [
+        "ModelInputCashflow"
+      ],
+      "outputs": []
+    }
+  ]
+}
