@@ -29,13 +29,22 @@ class NodeController @Inject()(cc : ControllerComponents) extends AbstractContro
 	}
 
 	def filterNodes(seq : String) = Action {implicit request =>
-		val newNodeNameArray = nodeNameArray.map(node => if (node.contains(seq)) node else null)
+		val nNArr : Array[String] = nodeNameArray.map(node => if (node.contains(seq)) node else null)
 
+		val newNodeNameArray : ArrayBuffer[String] = new ArrayBuffer()
 		val newDependenciesArray : ArrayBuffer[Array[String]] = new ArrayBuffer()
 		val newOutputsArray : ArrayBuffer[Array[String]] = new ArrayBuffer()
 
+		//Loop through all the found items and remove anything that is empty or null
+		nNArr.foreach(name => {
+			if (name != "" && name != null) {
+				newNodeNameArray.append(name)
+			}
+		})
+
 		nodes.foreach(node => {
 			newNodeNameArray.foreach(newName => {
+				//Append the dependencies and outputs to the associated parent node
 				if (node._name == newName && newName != null && newName != "") {
 					newDependenciesArray.append(nodeDependenciesArray(node._id))
 					newOutputsArray.append(nodeOutputsArray(node._id))
@@ -43,10 +52,9 @@ class NodeController @Inject()(cc : ControllerComponents) extends AbstractContro
 			})
 		})
 
-		val transformedDependenciesArray = newDependenciesArray.map(dependency => dependency).toArray[Array[String]]
-		val transformedOutputsArray = newOutputsArray.map(output => output).toArray[Array[String]]
+		val transformedDependenciesArray = newDependenciesArray.toArray[Array[String]]
+		val transformedOutputsArray = newOutputsArray.toArray[Array[String]]
 
-		//Ok(views.html.node(newNodeNameArray, transformedDependenciesArray, transformedOutputsArray))
-		Ok(seq)
+		Ok(views.html.node(newNodeNameArray.toArray[String], transformedDependenciesArray, transformedOutputsArray))
 	}
 }

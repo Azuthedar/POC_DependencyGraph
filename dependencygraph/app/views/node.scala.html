@@ -8,11 +8,10 @@
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/node.css")">
 </head>
 <body>
-    @*<form method="GET" action="/nodes/search">
-    *
-    *    <input type="text" name="search" value="">
-    *    <button type="submit" ></button>
-    </form>*@
+    <form method="GET" action="/nodes/filter">
+        <input type="search" name="search" value="">
+        <button type="submit" ></button>
+    </form>
     <table>
         <tr><th><center>Nodes</center></th></tr>
         <tbody>

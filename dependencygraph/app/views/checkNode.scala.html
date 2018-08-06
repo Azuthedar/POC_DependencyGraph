@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>@nodeName</title>
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/checkNode.css")">
 </head>
 <body>
@@ -14,10 +14,10 @@
             <tr><th class="nodeName">@nodeName</th></tr>
             <tr></tr>
             @for(dependency <- 0 to nodeDependencies.length - 1) {
-            <tr><td class="nodeDependencies">@nodeDependencies(dependency)</td></tr>
+                <tr><td class="nodeDependencies">@nodeDependencies(dependency)</td></tr>
             }
             @for(output <- 0 to nodeOutputs.length - 1) {
-            <tr><td class="nodeOutputs">@nodeOutputs(output)</td></tr>
+                <tr><td class="nodeOutputs">@nodeOutputs(output)</td></tr>
             }
         </tbody>
     </table>
