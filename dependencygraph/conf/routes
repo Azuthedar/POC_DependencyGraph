@@ -25,5 +25,5 @@ GET     /nodes                      controllers.NodeController.node
 # Filter node test
 GET     /nodes/filter        controllers.NodeController.filterNodes(search)
 
-# Test nodes
+# Show node details
 GET    /nodes/nodeDetails                  controllers.NodeController.checkNode(id)
