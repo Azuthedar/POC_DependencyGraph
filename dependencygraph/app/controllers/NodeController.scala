@@ -1,23 +1,20 @@
 package controllers
 
 import graph.DataExtraction
-import graph.Node
+import graph.ParentNode
 import play.api.mvc._
-import play.api._
 import javax.inject._
-import play.api.http.Writeable
-import play.api.libs.json.{JsValue, Json, Writes}
 
 import scala.collection.mutable.ArrayBuffer
 import scala.concurrent.Future
 
 class NodeController @Inject()(cc : ControllerComponents) extends AbstractController(cc) {
 
-	val nodes : ArrayBuffer[Node] = DataExtraction.processJSON("public/resources/data/data.json")
+	DataExtraction.allNodes = DataExtraction.processJSON("public/resources/data/data.json")
 
-	val nodeNameArray : Array[String] = nodes.map(node => node._name).toArray[String]
-	val nodeDependenciesArray : Array[Array[String]] = nodes.map(node => node._dependencies.toArray[String]).toArray[Array[String]]
-	val nodeOutputsArray : Array[Array[String]] = nodes.map(node => node._outputs.toArray[String]).toArray[Array[String]]
+	val nodeNameArray : Array[String] = DataExtraction.allNodes.map(node => node._name).toArray[String]
+	val nodeDependenciesArray : Array[Array[String]] = DataExtraction.allNodes.map(node => node._dependencies.toArray[String]).toArray[Array[String]]
+	val nodeOutputsArray : Array[Array[String]] = DataExtraction.allNodes.map(node => node._outputs.toArray[String]).toArray[Array[String]]
 
 	def node() = Action { implicit request =>
 		Ok(views.html.node(nodeNameArray, nodeDependenciesArray, nodeOutputsArray))
@@ -26,6 +23,10 @@ class NodeController @Inject()(cc : ControllerComponents) extends AbstractContro
 	def checkNode(id : String) = Action {
 		val trueId = id.toInt
 		Ok(views.html.checkNode(nodeNameArray(trueId), nodeDependenciesArray(trueId), nodeOutputsArray(trueId)))
+
+		/*val parentNode : ParentNode = new ParentNode(DataExtraction.allNodes(trueId))
+		val parentDependencies : Array[String] = parentNode._dependencyNodes.map(node => node._name).toArray[String]
+		Ok(views.html.checkNode(parentNode._name, parentDependencies, parentNode._outputs.toArray[String]))*/
 	}
 
 	def filterNodes(seq : String) = Action {implicit request =>
@@ -42,7 +43,7 @@ class NodeController @Inject()(cc : ControllerComponents) extends AbstractContro
 			}
 		})
 
-		nodes.foreach(node => {
+		DataExtraction.allNodes.foreach(node => {
 			newNodeNameArray.foreach(newName => {
 				//Append the dependencies and outputs to the associated parent node
 				if (node._name == newName && newName != null && newName != "") {

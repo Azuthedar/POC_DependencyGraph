@@ -7,6 +7,9 @@ import play.api.libs.json._
 import scala.collection.mutable.ArrayBuffer
 
 object DataExtraction {
+
+	var allNodes : ArrayBuffer[Node] = new ArrayBuffer()
+
 	def processJSON(filePath : String) : ArrayBuffer[Node] = {
 		if (filePath.contains(".json")) {
 			var nodeArr : ArrayBuffer[Node] = new ArrayBuffer()
