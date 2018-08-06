@@ -1,0 +1,48 @@
+.nodeName {
+    background: rgb(200, 200, 200);
+    font-size: 3vh;
+    font-style: bold;
+    text-align: center;
+    border-width: 3vh;
+    border-style: solid;
+    border-radius: 100%;
+    border-color: rgb(200, 200, 200);
+}
+
+.nodeDependencies {
+    background: rgb(240, 50, 50);
+    font-size: 2.5vh;
+    text-align: center;
+    /*border: 3ch solid grey;
+    border-radius: 100%;
+    border-color: rgb(240, 50, 50);*/
+}
+
+.nodeOutputs {
+    background: rgb(0, 200, 50);
+    font-size: 2.5vh;
+    text-align: center;
+    /*border: 3ch solid grey;
+    border-radius: 100%;
+    border-color: rgb(0, 200, 50);*/
+}
+
+#returnButton {
+    color: white;
+    background: black;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:visited {
+    text-decoration: none;
+    color: white;
+}
+
+a:link {
+    text-decoration: none;
+    color: white;
+}

@@ -2,9 +2,17 @@ package graph
 
 import play.api.libs.json.JsValue
 
-class Node(name : JsValue, dependencies : Option[Seq[JsValue]] = None, outputs : Option[Seq[JsValue]] = None) {
-	val _name : JsValue = name
-	val _dependencies : Seq[JsValue] = dependencies.get
-	val _outputs : Seq[JsValue] = outputs.get
+import scala.collection.mutable.ArrayBuffer
 
+class Node(name : String, dependencies : Option[ArrayBuffer[String]] = None, outputs : Option[ArrayBuffer[String]] = None)
+{
+	val _id : Int = Node.id
+	Node.id += 1
+	val _name : String= name
+	val _dependencies : ArrayBuffer[String] = dependencies.get
+	val _outputs : ArrayBuffer[String] = outputs.get
+}
+
+object Node {
+	var id : Int = 0
 }

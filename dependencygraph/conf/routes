@@ -22,5 +22,5 @@ GET     /greet                      controllers.HomeController.greet(name)
 # Get Node Names
 GET     /nodes                      controllers.NodeController.node
 
-# Get Detailed Node Information
-GET     /nodes/information          controllers.NodeController.detailedInformation
+# Test nodes
+GET    /nodes/nodeDetails                  controllers.NodeController.checkNode(id)
