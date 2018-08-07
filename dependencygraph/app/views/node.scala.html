@@ -9,12 +9,28 @@
 </head>
 <body>
     @for(parentNode <- nodes) {
-        @nodes(parentNode._1)._id
         <br />
-        @for(sourcesNode <- parentNode._2._sources) {
-            Depth: 1 @sourcesNode._id
+        <span class="parentNodes"><strong>@nodes(parentNode._1)._id</strong></span>
+        <br />
+        Sources: <br />
+        @for(sourceNode <- parentNode._2._sources) {
+        <span class="sourceNodes">@sourceNode._id</span>
+            <br />
         }
         <br />
+        Outputs: <br />
+        @for(outputNode <- parentNode._2._outputs) {
+        <span class="outputNodes">@outputNode._id</span>
+            <br />
+        }
+        <br />
+        @if(parentNode._2.hasDependencies) {
+            Dependencies: <br />
+            @for(dependencyNode <- parentNode._2._dependencies) {
+                <span class="dependencyNodes">@dependencyNode._id</span>
+                <br />
+            }
+        }
     }
 </body>
 </html>

@@ -7,6 +7,7 @@ class Node(name : String)
 	val _id : String = name
 	val _sources : ArrayBuffer[Node] = new ArrayBuffer()
 	val _outputs : ArrayBuffer[Node] = new ArrayBuffer()
+	val _dependencies : ArrayBuffer[Node] = new ArrayBuffer()
 
 	def addSource(node : Node) : Unit = {
 		this._sources += node
@@ -24,9 +25,21 @@ class Node(name : String)
 		this._outputs
 	}
 
-	def dependantExistWithinNode(sourceId : String) : Boolean = {
-		this._outputs.contains(sourceId)
+	def dependantExistWithinNode(id : String) : Boolean = {
+		this._outputs.foreach(output => {
+			if (output._id == id) {
+				return true
+			}
+		})
+		false
 	}
 
+	def addDependency(node : Node): Unit = {
+		if (!this._dependencies.contains(node))
+			this._dependencies.append(node)
+	}
 
+	def hasDependencies : Boolean = {
+		this._dependencies.nonEmpty
+	}
 }

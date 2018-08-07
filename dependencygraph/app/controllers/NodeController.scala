@@ -10,13 +10,27 @@ import scala.concurrent.Future
 class NodeController @Inject()(cc : ControllerComponents) extends AbstractController(cc) {
 
 	DataExtraction.allNodes = DataExtraction.processJSON("public/resources/data/data.json")
+	DataExtraction.getAllNodeDependencies()
 
 	/*val nodeNameArray : Array[String] = DataExtraction.allNodes.map(node => node._processName).toArray[String]
 	val nodeDependenciesArray : Array[Array[String]] = DataExtraction.allNodes.map(node => node._dependencies.toArray[String]).toArray[Array[String]]
 	val nodeOutputsArray : Array[Array[String]] = DataExtraction.allNodes.map(node => node._outputs.toArray[String]).toArray[Array[String]]*/
 
 	def node() = Action { implicit request =>
-	    DataExtraction.allNodes.foreach(parentNode => DataExtraction.allNodes(parentNode._1)._id)
+	    DataExtraction.allNodes.foreach(parentNode => {
+
+		    for (source <- parentNode._2._sources) {
+			    source._id
+		    }
+
+		    for (output <- parentNode._2._outputs) {
+			    output._id
+		    }
+
+		    for (dependency <- parentNode._2._dependencies) {
+			    dependency._id
+		    }
+	    })
 		Ok(views.html.node(DataExtraction.allNodes))
 	}
 
