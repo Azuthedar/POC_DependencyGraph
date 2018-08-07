@@ -1,9 +1,10 @@
+/*
 package graph
 
 import scala.collection.mutable.ArrayBuffer
 
 class ParentNode(parentNode : Node) {
-	val _name : String = parentNode._name
+	val _processName : String = parentNode._processName
 	val _dependencyNodes : ArrayBuffer[Node] = new ArrayBuffer()
 	val _outputs : ArrayBuffer[String] = parentNode._outputs
 
@@ -16,7 +17,7 @@ class ParentNode(parentNode : Node) {
 		DataExtraction.allNodes.foreach(node => {
 			dependencyOfNode.foreach(depName => {
 				//this._dependencyNodes.append(new Node(depName + " " + node._name))
-				if (node._name.contains(depName))
+				if (node._processName.contains(depName))
 				{
 					if (!this._dependencyNodes.contains(node))
 						this._dependencyNodes.append(node)
@@ -27,4 +28,4 @@ class ParentNode(parentNode : Node) {
 		})
 		null
 	}
-}
+}*/

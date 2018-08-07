@@ -23,7 +23,7 @@ GET     /greet                      controllers.HomeController.greet(name)
 GET     /nodes                      controllers.NodeController.node
 
 # Filter node test
-GET     /nodes/filter        controllers.NodeController.filterNodes(search)
+#GET     /nodes/filter        controllers.NodeController.filterNodes(search)
 
 # Show node details
-GET    /nodes/nodeDetails                  controllers.NodeController.checkNode(id)
+#GET    /nodes/nodeDetails                  controllers.NodeController.checkNode(id)

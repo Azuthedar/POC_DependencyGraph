@@ -3,27 +3,65 @@ package graph
 import java.io.FileInputStream
 
 import play.api.libs.json._
+import scala.collection.mutable.Map
 
 import scala.collection.mutable.ArrayBuffer
 
 object DataExtraction {
 
-	var allNodes : ArrayBuffer[Node] = new ArrayBuffer()
+	var allNodes : Map[String, Node] = Map[String, Node]()
 
-	def processJSON(filePath : String) : ArrayBuffer[Node] = {
+	def processJSON(filePath : String) : Map[String, Node] = {
 		if (filePath.contains(".json")) {
-			var nodeArr : ArrayBuffer[Node] = new ArrayBuffer()
 			val jsonFile = new FileInputStream(filePath)
 			val jsonParsed = Json.parse(jsonFile)
 
 			val fields = parseLineInfo(jsonParsed)
 
+			val processNodeMap : Map[String, Node] = Map[String, Node]()
+
+			val tempNodeMap : Map[String, Node] = Map[String, Node]()
+
 			for (i <- 0 to fields._1.length - 1)
 			{
-				val newNode : Node = new Node(fields._1(i).toString(), fields._2(i).asOpt[ArrayBuffer[String]], fields._3(i).asOpt[ArrayBuffer[String]])
-				nodeArr += newNode
+				val processName : String = fields._1(i).toString()
+
+				val sources : ArrayBuffer[String] = fields._2(i).asOpt[ArrayBuffer[String]].orNull
+				val outputs : ArrayBuffer[String] = fields._3(i).asOpt[ArrayBuffer[String]].orNull
+
+				val newProcessNode : Node = new Node(processName)
+
+				//Add in given sources
+				for (sourceName <- sources) {
+					val sourceNode : Node = if (!tempNodeMap.contains(sourceName)) {
+						val newSourceNode = new Node(sourceName)
+						tempNodeMap += (sourceName -> newSourceNode)
+						newSourceNode
+					}
+					else {
+						tempNodeMap(sourceName)
+					}
+
+					newProcessNode.addSource(sourceNode)
+				}
+
+				//Add in given outputs
+				for (outputName <- outputs) {
+					val outputNode : Node = if (!tempNodeMap.contains(outputName)) {
+						val newOutputMap = new Node(outputName)
+						tempNodeMap += (outputName -> newOutputMap)
+						newOutputMap
+					}
+					else {
+						tempNodeMap(outputName)
+					}
+					newProcessNode.addOutput(outputNode)
+				}
+
+				processNodeMap += (processName -> newProcessNode)
 			}
-			nodeArr
+			processNodeMap
+
 		}
 		else {
 			null

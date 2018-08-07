@@ -1,7 +1,7 @@
 {
   "subProcesses": [
     {
-      "name": "EnrichCollateral",
+      "name": "EnrichCollateralProcess",
       "sources": [
         "SAS_CLN",
         "SAS_REPO",
@@ -14,7 +14,7 @@
       ]
     },
     {
-      "name": "EnrichExposure",
+      "name": "EnrichExposureProcess",
       "sources": [
         "CPFExposure",
         "TreasuryExposure",
@@ -32,7 +32,7 @@
       ]
     },
     {
-      "name": "ModelInput",
+      "name": "ModelInputProcess",
       "sources": [
         "DataSanityExposure",
         "EnrichedCollateral"
@@ -44,7 +44,7 @@
       ]
     },
     {
-      "name": "ModelOutput",
+      "name": "ModelOutputProcess",
       "sources": [
         "ModelOutput",
         "DataSanityExposure",
@@ -55,7 +55,7 @@
       ]
     },
     {
-      "name": "VarianceReport",
+      "name": "VarianceReportProcess",
       "sources": [
         "FinalImpairmentExposure"
       ],
@@ -64,14 +64,14 @@
       ]
     },
     {
-      "name": "FinalImpairmentExposure_HDFSToWindows",
+      "name": "FinalImpairmentExposure_HDFSToWindowsProcess",
       "sources": [
         "FinalImpairmentExposure"
       ],
       "outputs": []
     },
     {
-      "name": "DisclosureReport",
+      "name": "DisclosureReportProcess",
       "sources": [
         "DisclosureExposureOutput",
         "EnrichedCollateral",
@@ -83,7 +83,7 @@
       ]
     },
     {
-      "name": "MonthlyMOTDisclosure",
+      "name": "MonthlyMOTDisclosureProcess",
       "sources": [
         "DisclosureExposure"
       ],
@@ -92,7 +92,7 @@
       ]
     },
     {
-      "name": "OpeningMOTDisclosure",
+      "name": "OpeningMOTDisclosureProcess",
       "sources": [
         "DisclosureExposure"
       ],
@@ -101,7 +101,7 @@
       ]
     },
     {
-      "name": "YTDMOTDisclosure",
+      "name": "YTDMOTDisclosureProcess",
       "sources": [
         "MonthlyMOTDisclosure"
       ],
@@ -110,56 +110,56 @@
       ]
     },
     {
-      "name": "EnrichedExposure_HDFSToWindows",
+      "name": "EnrichedExposure_HDFSToWindowsProcess",
       "sources": [
         "EnrichedExposure"
       ],
       "outputs": []
     },
     {
-      "name": "Disclosure_HDFSToWindows",
+      "name": "Disclosure_HDFSToWindowsProcess",
       "sources": [
         "Disclosure"
       ],
       "outputs": []
     },
     {
-      "name": "YTDMOTDisclosure_HDFSToWindows",
+      "name": "YTDMOTDisclosure_HDFSToWindowsProcess",
       "sources": [
         "YTDMOTDisclosure"
       ],
       "outputs": []
     },
     {
-      "name": "Disclosure_Control_HDFSToWindows",
+      "name": "Disclosure_Control_HDFSToWindowsProcess",
       "sources": [
         "Disclosure_Control"
       ],
       "outputs": []
     },
     {
-      "name": "VarianceReport_HDFSToWindows",
+      "name": "VarianceReport_HDFSToWindowsProcess",
       "sources": [
         "VarianceReport"
       ],
       "outputs": []
     },
     {
-      "name": "ModelInputExposure_HDFSToWindows",
+      "name": "ModelInputExposure_HDFSToWindowsProcess",
       "sources": [
         "ModelInputExposure"
       ],
       "outputs": []
     },
     {
-      "name": "ModelInputCollateral_HDFSToWindows",
+      "name": "ModelInputCollateral_HDFSToWindowsProcess",
       "sources": [
         "ModelInputCollateral"
       ],
       "outputs": []
     },
     {
-      "name": "ModelInputCashflow_HDFSToWindows",
+      "name": "ModelInputCashflow_HDFSToWindowsProcess",
       "sources": [
         "ModelInputCashflow"
       ],

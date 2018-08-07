@@ -1,7 +1,6 @@
 package controllers
 
 import graph.DataExtraction
-import graph.ParentNode
 import play.api.mvc._
 import javax.inject._
 
@@ -12,15 +11,16 @@ class NodeController @Inject()(cc : ControllerComponents) extends AbstractContro
 
 	DataExtraction.allNodes = DataExtraction.processJSON("public/resources/data/data.json")
 
-	val nodeNameArray : Array[String] = DataExtraction.allNodes.map(node => node._name).toArray[String]
+	/*val nodeNameArray : Array[String] = DataExtraction.allNodes.map(node => node._processName).toArray[String]
 	val nodeDependenciesArray : Array[Array[String]] = DataExtraction.allNodes.map(node => node._dependencies.toArray[String]).toArray[Array[String]]
-	val nodeOutputsArray : Array[Array[String]] = DataExtraction.allNodes.map(node => node._outputs.toArray[String]).toArray[Array[String]]
+	val nodeOutputsArray : Array[Array[String]] = DataExtraction.allNodes.map(node => node._outputs.toArray[String]).toArray[Array[String]]*/
 
 	def node() = Action { implicit request =>
-		Ok(views.html.node(nodeNameArray, nodeDependenciesArray, nodeOutputsArray))
+	    DataExtraction.allNodes.foreach(parentNode => DataExtraction.allNodes(parentNode._1)._id)
+		Ok(views.html.node(DataExtraction.allNodes))
 	}
 
-	def checkNode(id : String) = Action {
+/*	def checkNode(id : String) = Action {
 		val trueId = id.toInt
 		Ok(views.html.checkNode(nodeNameArray(trueId), nodeDependenciesArray(trueId), nodeOutputsArray(trueId)))
 
@@ -46,7 +46,7 @@ class NodeController @Inject()(cc : ControllerComponents) extends AbstractContro
 		DataExtraction.allNodes.foreach(node => {
 			newNodeNameArray.foreach(newName => {
 				//Append the dependencies and outputs to the associated parent node
-				if (node._name == newName && newName != null && newName != "") {
+				if (node._processName == newName && newName != null && newName != "") {
 					newDependenciesArray.append(nodeDependenciesArray(node._id))
 					newOutputsArray.append(nodeOutputsArray(node._id))
 				}
@@ -57,5 +57,5 @@ class NodeController @Inject()(cc : ControllerComponents) extends AbstractContro
 		val transformedOutputsArray = newOutputsArray.toArray[Array[String]]
 
 		Ok(views.html.node(newNodeNameArray.toArray[String], transformedDependenciesArray, transformedOutputsArray))
-	}
+	}*/
 }

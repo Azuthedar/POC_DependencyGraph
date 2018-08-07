@@ -1,4 +1,4 @@
-@(nodeNames : Array[String], nodeDependencies : Array[Array[String]], nodeOutputs : Array[Array[String]])
+@(nodes : scala.collection.mutable.Map[String, graph.Node])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,31 +8,13 @@
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/node.css")">
 </head>
 <body>
-    <form method="GET" action="/nodes/filter">
-        <input type="search" name="search" value="">
-        <button type="submit" ></button>
-    </form>
-    <table>
-        <tr><th><center>Nodes</center></th></tr>
-        <tbody>
-            @for(name <- 0 to nodeNames.length - 1) {
-            <tr><td class="nameNodes"><a href="@routes.NodeController.checkNode(name.toString)">@nodeNames(name)</a></td></tr>
-                <tr>
-                    @if(nodeDependencies(name).length > 0) {
-                        @for(dependency <- 0 to nodeDependencies(name).length - 1) {
-                            <td class="dependencyNodes">@nodeDependencies(name)(dependency)</td>
-                        }
-                    }
-                </tr>
-                <tr>
-                    @if(nodeOutputs(name).length > 0) {
-                        @for(output <- 0 to nodeOutputs(name).length - 1) {
-                            <td class="outputNodes">@nodeOutputs(name)(output)</td>
-                        }
-                    }
-                </tr>
-            }
-        </tbody>
-    </table>
+    @for(parentNode <- nodes) {
+        @nodes(parentNode._1)._id
+        <br />
+        @for(sourcesNode <- parentNode._2._sources) {
+            Depth: 1 @sourcesNode._id
+        }
+        <br />
+    }
 </body>
 </html>

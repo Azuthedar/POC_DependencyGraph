@@ -2,15 +2,31 @@ package graph
 
 import scala.collection.mutable.ArrayBuffer
 
-class Node(name : String, dependencies : Option[ArrayBuffer[String]] = None, outputs : Option[ArrayBuffer[String]] = None)
+class Node(name : String)
 {
-	val _id : Int = Node.id
-	Node.id += 1
-	val _name : String= name
-	val _dependencies : ArrayBuffer[String] = dependencies.orNull
-	val _outputs : ArrayBuffer[String] = outputs.orNull
-}
+	val _id : String = name
+	val _sources : ArrayBuffer[Node] = new ArrayBuffer()
+	val _outputs : ArrayBuffer[Node] = new ArrayBuffer()
 
-object Node {
-	var id : Int = 0
+	def addSource(node : Node) : Unit = {
+		this._sources += node
+	}
+
+	def addOutput(node : Node) : Unit = {
+		this._outputs += node
+	}
+
+	def getSources : ArrayBuffer[Node] = {
+		this._sources
+	}
+
+	def getOutputs : ArrayBuffer[Node] = {
+		this._outputs
+	}
+
+	def dependantExistWithinNode(sourceId : String) : Boolean = {
+		this._outputs.contains(sourceId)
+	}
+
+
 }
