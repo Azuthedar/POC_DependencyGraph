@@ -6,31 +6,42 @@
     <meta charset="UTF-8">
     <title>Nodes</title>
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/node.css")">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/node.wordtree.js")"></script>
 </head>
 <body>
-    @for(parentNode <- nodes) {
-        <br />
-        <span class="parentNodes"><strong>@nodes(parentNode._1)._id</strong></span>
-        <br />
-        Sources: <br />
-        @for(sourceNode <- parentNode._2._sources) {
-        <span class="sourceNodes">@sourceNode._id</span>
-            <br />
-        }
-        <br />
-        Outputs: <br />
-        @for(outputNode <- parentNode._2._outputs) {
-        <span class="outputNodes">@outputNode._id</span>
-            <br />
-        }
-        <br />
-        @if(parentNode._2.hasDependencies) {
-            Dependencies: <br />
-            @for(dependencyNode <- parentNode._2._dependencies) {
-                <span class="dependencyNodes">@dependencyNode._id</span>
-                <br />
-            }
-        }
-    }
+    <table>
+        <tbody>
+            <tr>
+                @for(parentNode <- nodes) {
+                    <td>
+                    <span class="parentNodes"><strong>@nodes(parentNode._1)._id</strong></span>
+                    <br />
+                    <br />
+                    @for(sourceNode <- parentNode._2._sources) {
+                        <span class="sourceNodes">@sourceNode._id</span>
+                        <br />
+                    }
+                    <br />
+                    @if(parentNode._2._outputs.nonEmpty) {
+                        @for(outputNode <- parentNode._2._outputs) {
+                            <span class="outputNodes">@outputNode._id</span>
+                            <br />
+                        }
+                    }
+                    <br />
+                    @if(parentNode._2.hasDependencies) {
+                        Dependencies: <br />
+                        @for(dependencyNode <- parentNode._2._dependencies) {
+                            @*the dependencyNode._1_.id specifies the dependency's parentNode. whilst DependencyNode._2._id is the dependencyNode*@
+                            <span class="dependencyNodes">@dependencyNode._1._id - @dependencyNode._2._id</span>
+                            <br />
+                        }
+                    }
+                    </td>
+                }
+            <tr>
+        </tbody>
+    </table>
 </body>
 </html>

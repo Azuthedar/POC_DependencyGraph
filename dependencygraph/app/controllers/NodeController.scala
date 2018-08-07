@@ -3,6 +3,7 @@ package controllers
 import graph.DataExtraction
 import play.api.mvc._
 import javax.inject._
+import play.filters.headers.SecurityHeadersFilter
 
 import scala.collection.mutable.ArrayBuffer
 import scala.concurrent.Future
@@ -17,21 +18,10 @@ class NodeController @Inject()(cc : ControllerComponents) extends AbstractContro
 	val nodeOutputsArray : Array[Array[String]] = DataExtraction.allNodes.map(node => node._outputs.toArray[String]).toArray[Array[String]]*/
 
 	def node() = Action { implicit request =>
-	    DataExtraction.allNodes.foreach(parentNode => {
-
-		    for (source <- parentNode._2._sources) {
-			    source._id
-		    }
-
-		    for (output <- parentNode._2._outputs) {
-			    output._id
-		    }
-
-		    for (dependency <- parentNode._2._dependencies) {
-			    dependency._id
-		    }
+	    DataExtraction.allNodes.foreach(node => {
+		    node._2._dependencies.foreach(dependency => dependency._2)
 	    })
-		Ok(views.html.node(DataExtraction.allNodes))
+		Ok(views.html.node(DataExtraction.allNodes)).withHeaders(SecurityHeadersFilter.CONTENT_SECURITY_POLICY_HEADER -> "default-src: 'self' script-src: 'self' gstatic.com")
 	}
 
 /*	def checkNode(id : String) = Action {

@@ -81,7 +81,7 @@ object DataExtraction {
 				//Check each of the parent sources and see if the source's file exists in another node, if it does add it as a dependency
 				parentNode._2._sources.foreach(source => {
 					if (otherNode._2.dependantExistWithinNode(source._id)) {
-						parentNode._2.addDependency(otherNode._2)
+						parentNode._2.addDependency(otherNode._2, source)
 					}
 				})
 			})

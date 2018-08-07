@@ -4,7 +4,7 @@ html {
 
 .parentNodes {
     background: rgb(200, 200, 200);
-    font-size: 2vh;
+    font-size: 2.3vh;
     font-style: bold;
     text-align: center;
     border-width: 0.9vh;
@@ -20,7 +20,7 @@ html {
 
 .sourceNodes {
     background: rgb(50, 50, 200);
-    font-size: 2.5vh;
+    font-size: 1.9vh;
     text-align: center;
     color: rgb(200, 200,200)
     /*border: 3ch solid grey;
@@ -30,7 +30,7 @@ html {
 
 .outputNodes {
     background: rgb(0, 200, 50);
-    font-size: 2.5vh;
+    font-size: 1.9vh;
     text-align: center;
     /*border: 3ch solid grey;
     border-radius: 100%;
@@ -39,17 +39,19 @@ html {
 
 .dependencyNodes {
     background: rgb(150, 50, 50);
-    font-size: 2.5vh;
+    font-size: 2.0vh;
     text-align: center;
 }
 
-tr th {
-    font-size: 4vh;
+table tbody td {
+    text-align: center;
+    padding: 2vh;
 }
 
 table {
-    white-space: nowrap;
-    table-layout: auto;
+    table-layout: grid;
+    border-collapse: collapse;
+    border: 0.5vh solid rgba(0,0,0,0)
 }
 
 a:link {
