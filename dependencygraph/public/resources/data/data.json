@@ -164,6 +164,16 @@
         "ModelInputCashflow"
       ],
       "outputs": []
+    },
+    {
+      "name": "Custom",
+      "sources": [
+        "Disclosure",
+        "ModelInputCashflow"
+      ],
+      "outputs": [
+        "custom"
+      ]
     }
   ]
 }

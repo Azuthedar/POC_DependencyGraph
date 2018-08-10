@@ -1,0 +1,27 @@
+@(node : graph.Node)
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>@node._id</title>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/node.css")">
+</head>
+<body>
+    <table>
+        <tbody>
+            <tr><th class="parentNodes">@node._id</th></tr>
+            @for(source <- node._sources) {
+                <tr><td class="sourceNodes">@source._id</td></tr>
+            }
+            @for(output <- node._outputs) {
+                <tr><td class="outputNodes">@output._id</td></tr>
+            }
+            @for(dependency <- node._dependencies) {
+            <tr><td class="dependencyNodes"><a href="@routes.NodeController.nodeDetails(dependency._1._id)">@dependency._2._id</a></td></tr>
+            }
+        </tbody>
+    </table>
+    <button id="returnButton"><a href="@routes.NodeController.node">Return</a></button>
+</body>
+</html>

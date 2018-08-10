@@ -4,26 +4,26 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
+GET     /                                       controllers.HomeController.index
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET     /assets/*file                           controllers.Assets.versioned(path="/public", file: Asset)
 
 
 # Map loginCount
-GET     /user/:userId/login/count  controllers.HomeController.loginCount(userId)
+GET     /user/:userId/login/count               controllers.HomeController.loginCount(userId)
 
 # Greet user
-GET     /user/:name/greet         controllers.HomeController.greet(name)
+GET     /user/:name/greet                       controllers.HomeController.greet(name)
 
 # Greet user
-GET     /greet                      controllers.HomeController.greet(name)
+GET     /greet                                  controllers.HomeController.greet(name)
 
 # Get Node Names
-GET     /nodes                      controllers.NodeController.node
+GET     /nodes                                  controllers.NodeController.node
 
 # Filter node test
-#GET     /nodes/filter        controllers.NodeController.filterNodes(search)
+GET     /nodes/filter                           controllers.NodeController.filterNodes(search)
 
 # Show node details
-#GET    /nodes/nodeDetails                  controllers.NodeController.checkNode(id)
+GET    /nodes/nodeDetails                       controllers.NodeController.nodeDetails(id)

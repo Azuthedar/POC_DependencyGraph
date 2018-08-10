@@ -63,3 +63,8 @@ a:visited {
     text-decoration: none;
     color: black;
 }
+
+table {
+   empty-cells: show;
+   float: center;
+}

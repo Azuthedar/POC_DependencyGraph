@@ -8,11 +8,10 @@ class Node(name : String)
 	val _sources : ArrayBuffer[Node] = new ArrayBuffer()
 	val _outputs : ArrayBuffer[Node] = new ArrayBuffer()
 	val _dependencies : ArrayBuffer[(Node, Node)] = new ArrayBuffer()
-
+	var depth = 0
 	def addSource(node : Node) : Unit = {
 		this._sources += node
 	}
-
 	def addOutput(node : Node) : Unit = {
 		this._outputs += node
 	}
@@ -42,4 +41,8 @@ class Node(name : String)
 	def hasDependencies : Boolean = {
 		this._dependencies.nonEmpty
 	}
+}
+
+object Node {
+	var p_depArray : ArrayBuffer[(Node, Node)] = new ArrayBuffer()
 }

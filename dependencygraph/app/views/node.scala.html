@@ -7,15 +7,21 @@
     <title>Nodes</title>
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/node.css")">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/node.wordtree.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/node.orgchart.js")"></script>
 </head>
 <body>
+    <div id='chart_div'></div>
+    <form method="GET" action="/nodes/filter">
+        <input type="search" name="search" value="">
+        <button type="submit" value="Search" ></button>
+    </form>
+    </br>
     <table>
         <tbody>
             <tr>
                 @for(parentNode <- nodes) {
                     <td>
-                    <span class="parentNodes"><strong>@nodes(parentNode._1)._id</strong></span>
+                    <span class="parentNodes"><a href="@routes.NodeController.nodeDetails(parentNode._2._id)"><strong>@parentNode._2._id</strong></a></span>
                     <br />
                     <br />
                     @for(sourceNode <- parentNode._2._sources) {
@@ -34,14 +40,57 @@
                         Dependencies: <br />
                         @for(dependencyNode <- parentNode._2._dependencies) {
                             @*the dependencyNode._1_.id specifies the dependency's parentNode. whilst DependencyNode._2._id is the dependencyNode*@
-                            <span class="dependencyNodes">@dependencyNode._1._id - @dependencyNode._2._id</span>
+                            <span class="dependencyNodes">@dependencyNode._2._id</span>
                             <br />
                         }
                     }
                     </td>
                 }
-            <tr>
+            </tr>
         </tbody>
     </table>
+    @* <!-- @for(parentNode <- nodes) {
+        <table>
+            <tbody>
+                <tr>
+                    @if(parentNode._2._outputs.nonEmpty) {
+                        <td class="outputNodes">
+                        @for(outputNode <- parentNode._2._outputs) {
+                            @outputNode._id
+                            </br>
+                        }
+                        </td>
+                    }
+
+                    <td class="parentNodes"><a href="@routes.NodeController.nodeDetails(parentNode._2._id)"><strong>@parentNode._2._id</strong></a></td>
+
+                    @if(parentNode._2._sources.nonEmpty) {
+                        <td class="sourceNodes">
+                        @for(sourceNode <- parentNode._2._sources) {
+                            @sourceNode._id
+                            </br>
+                        }
+                        </td>
+                    }
+
+                    @if(parentNode._2.hasDependencies) {
+                        <tr>
+                            @if(parentNode._2._outputs.nonEmpty) {
+                                <td></td>
+                            }
+                            <td class="dependencyNodes">
+                            Dependencies: <br />
+                            @for(dependencyNode <- parentNode._2._dependencies) {
+                                @dependencyNode._2._id
+                                <br />
+                            }
+                            </td>
+                        </tr>
+                    }
+                </tr>
+            </tbody>
+        </table>
+        </br>
+    }  --> *@
 </body>
 </html>
