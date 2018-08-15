@@ -2,94 +2,58 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <meta charset="UTF-8">
-    <title>Nodes</title>
-    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/node.css")">
-    <script type="txt/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/graphdracula/1.0.3/dracula.min.js"></script>
-    <script type="txt/javascript" src="@routes.Assets.versioned("javascripts/main.js")"></script>
+	<meta charset="UTF-8">
+	<title>Nodes</title>
+	<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/node.css")">
+	<script type="text/javascript" src="@routes.Assets.versioned("javascripts/raphael.min.js")"></script>
+	
 </head>
 <body>
-    <div id='chart_div'></div>
-    <form method="GET" action="/nodes/filter">
-        <input type="search" name="search" value="">
-        <button type="submit" value="Search" ></button>
-    </form>
-    </br>
-    <table>
-        <tbody>
-            <tr>
-                @for(parentNode <- nodes) {
-                    <td>
-                    <span class="parentNodes"><a href="@routes.NodeController.nodeDetails(parentNode._2._id)"><strong>@parentNode._2._id</strong></a></span>
-                    <br />
-                    <br />
-                    @for(sourceNode <- parentNode._2._sources) {
-                        <span class="sourceNodes">@sourceNode._id</span>
-                        <br />
-                    }
-                    <br />
-                    @if(parentNode._2._outputs.nonEmpty) {
-                        @for(outputNode <- parentNode._2._outputs) {
-                            <span class="outputNodes">@outputNode._id</span>
-                            <br />
-                        }
-                    }
-                    <br />
-                    @if(parentNode._2.hasDependencies) {
-                        Dependencies: <br />
-                        @for(dependencyNode <- parentNode._2._dependencies) {
-                            @*the dependencyNode._1_.id specifies the dependency's parentNode. whilst DependencyNode._2._id is the dependencyNode*@
-                            <span class="dependencyNodes">@dependencyNode._2._id</span>
-                            <br />
-                        }
-                    }
-                    </td>
-                }
-            </tr>
-        </tbody>
-    </table>
-    @* <!-- @for(parentNode <- nodes) {
-        <table>
-            <tbody>
-                <tr>
-                    @if(parentNode._2._outputs.nonEmpty) {
-                        <td class="outputNodes">
-                        @for(outputNode <- parentNode._2._outputs) {
-                            @outputNode._id
-                            </br>
-                        }
-                        </td>
-                    }
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/dracula.min.js")"></script>
+	<div id="canvas"></div>
+	<script type="text/javascript" src="@routes.Assets.versioned("javascripts/main.js")"></script>
+	@* <!-- @for(parentNode <- nodes) {
+		<table>
+			<tbody>
+				<tr>
+					@if(parentNode._2._outputs.nonEmpty) {
+						<td class="outputNodes">
+						@for(outputNode <- parentNode._2._outputs) {
+							@outputNode._id
+							</br>
+						}
+						</td>
+					}
 
-                    <td class="parentNodes"><a href="@routes.NodeController.nodeDetails(parentNode._2._id)"><strong>@parentNode._2._id</strong></a></td>
+					<td class="parentNodes"><a href="@routes.NodeController.nodeDetails(parentNode._2._id)"><strong>@parentNode._2._id</strong></a></td>
 
-                    @if(parentNode._2._sources.nonEmpty) {
-                        <td class="sourceNodes">
-                        @for(sourceNode <- parentNode._2._sources) {
-                            @sourceNode._id
-                            </br>
-                        }
-                        </td>
-                    }
+					@if(parentNode._2._sources.nonEmpty) {
+						<td class="sourceNodes">
+						@for(sourceNode <- parentNode._2._sources) {
+							@sourceNode._id
+							</br>
+						}
+						</td>
+					}
 
-                    @if(parentNode._2.hasDependencies) {
-                        <tr>
-                            @if(parentNode._2._outputs.nonEmpty) {
-                                <td></td>
-                            }
-                            <td class="dependencyNodes">
-                            Dependencies: <br />
-                            @for(dependencyNode <- parentNode._2._dependencies) {
-                                @dependencyNode._2._id
-                                <br />
-                            }
-                            </td>
-                        </tr>
-                    }
-                </tr>
-            </tbody>
-        </table>
-        </br>
-    }  --> *@
+					@if(parentNode._2.hasDependencies) {
+						<tr>
+							@if(parentNode._2._outputs.nonEmpty) {
+								<td></td>
+							}
+							<td class="dependencyNodes">
+							Dependencies: <br />
+							@for(dependencyNode <- parentNode._2._dependencies) {
+								@dependencyNode._2._id
+								<br />
+							}
+							</td>
+						</tr>
+					}
+				</tr>
+			</tbody>
+		</table>
+		</br>
+	}  --> *@
 </body>
 </html>

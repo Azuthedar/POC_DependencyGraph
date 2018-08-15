@@ -1,19 +1,29 @@
-//DOCS - https://www.graphdracula.net/
-var dracula_graph = new Dracula.Graph();
+var graph = new Dracula.Graph();
 
-dracula_graph.addEdge("s", "c");
-dracula_graph.addEdge("s", "a");
-dracula_graph.addEdge("s", "t");
+graph.addNode("C");
+graph.addNode("C++");
+graph.addNode("C#");
+graph.addNode("ASP.NET");
 
-dracula_graph.addEdge("t", "a");
-dracula_graph.addEdge("t", "k");
+graph.addNode("A");
+graph.addNode("B");
+graph.addNode("D");
 
-dracula_graph.addEdge("c", "a");
-dracula_graph.addEdge("c", "k");
+graph.addEdge("C", "C++");
+graph.addEdge("C", "C#");
 
-var layout = new Dracula.Layout.Spring(dracula_graph);
+graph.addEdge("C++", "C#");
 
-layout.layout();
+graph.addEdge("C#", "ASP.NET");
 
-var renderer = new Dracula.Renderer.Raphael('canvas', dracula_graph, 800, 800);
+
+graph.addEdge("A", "D");
+graph.addEdge("A", "B");
+
+graph.addEdge("D", "B");
+
+var layouter = new Dracula.Layout.Spring(graph);
+layouter.layout();
+
+var renderer = new Dracula.Renderer.Raphael('#canvas', graph, 2000, 2000);
 renderer.draw();

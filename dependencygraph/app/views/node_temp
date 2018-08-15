@@ -1,0 +1,39 @@
+	<div id='chart_div'></div>
+	<form method="GET" action="/nodes/filter">
+		<input type="search" name="search" value="">
+		<button type="submit" value="Search" ></button>
+	</form>
+	</br>
+	<table>
+		<tbody>
+			<tr>
+				@for(parentNode <- nodes) {
+					<td>
+					<span class="parentNodes"><a href="@routes.NodeController.nodeDetails(parentNode._2._id)"><strong>@parentNode._2._id</strong></a></span>
+					<br />
+					<br />
+					@for(sourceNode <- parentNode._2._sources) {
+						<span class="sourceNodes">@sourceNode._id</span>
+						<br />
+					}
+					<br />
+					@if(parentNode._2._outputs.nonEmpty) {
+						@for(outputNode <- parentNode._2._outputs) {
+							<span class="outputNodes">@outputNode._id</span>
+							<br />
+						}
+					}
+					<br />
+					@if(parentNode._2.hasDependencies) {
+						Dependencies: <br />
+						@for(dependencyNode <- parentNode._2._dependencies) {
+							@*the dependencyNode._1_.id specifies the dependency's parentNode. whilst DependencyNode._2._id is the dependencyNode*@
+							<span class="dependencyNodes">@dependencyNode._2._id</span>
+							<br />
+						}
+					}
+					</td>
+				}
+			</tr>
+		</tbody>
+	</table>
