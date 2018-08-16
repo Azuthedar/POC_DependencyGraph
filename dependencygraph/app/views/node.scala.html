@@ -1,4 +1,5 @@
-@(nodes : scala.collection.mutable.Map[String, graph.Node])
+@*(nodes : scala.collection.mutable.Map[String, graph.Node])*@
+@(nodes : play.api.libs.json.JsValue)
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +13,9 @@
     <script type="text/javascript" src="@routes.Assets.versioned("javascripts/dracula.min.js")"></script>
 	<div id="canvas"></div>
 	<script type="text/javascript" src="@routes.Assets.versioned("javascripts/main.js")"></script>
+	<script>
+		drawGraph(JSON.stringify("@nodes"));
+	</script>
 	@* <!-- @for(parentNode <- nodes) {
 		<table>
 			<tbody>
